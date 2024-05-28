@@ -1,0 +1,74 @@
+/*
+    CLIENT STREAMING
+    ----------------
+
+	1. Client is streaming and server will give the response one time
+	2. Analogy: Bf continuousely send msgs to agree gf, gf respond with one msg at the end
+	3. Since client is streaming, so our server(gf) receives a stream in the request by client(bf) 
+	4. Client function is not directly sending this stream to the server, here comes the play of stubs
+	5. Stubs is an intermediator between client and server. It forms a stream in itself, give one endpoint to the client(bf) to send a stream of msgs, & give one endpoint to server through which server(gf) can read the msgs.
+
+*/
+
+/*
+    SERVER STREAMING
+    ----------------
+
+	1. Server is streaming and client will give the response one time
+	2. Analogy: Gf continuousely send msgs to agree bf, bf respond with one msg at the end
+	3. Rest structure of function calls is similar, always gf receives the strem as request anf bf receives the endpoint to read the msgs.
+    4. IN this, gf will not send msgs by herself, she needs a list of msgs from bf because gf is dumb.
+    5. You can understabd it in this way that :
+       bf says : "Main rutha hua hu"
+       gf says : "kay hua"
+                 "maan jao na"
+                 "i love you"
+    
+*/
+
+/*  
+    BIDIRECTIONAL STREAMING
+    -----------------------
+    1. In bidirectional streaming, we can write simple codes without using channels also
+    2. But here we are using channels also:
+
+    -> This creates an unbuffered channel of type struct{}. This channel is used purely for signaling purposes;
+       no actual data is sent through it.
+    -> This goroutine runs concurrently to receive messages from the server. Inside the goroutine
+    -> The main goroutine blocks on the waitc channel by waiting to receive a value from it. Because
+       the waitc channel is only closed and never sent any values, this operation effectively waits until the channel is closed by the receiving goroutine.
+*/
+
+
+*/  PROTO FILES
+    -----------
+    1. rpc func(x) returns (y){}
+       look this from client perspective
+*/
+
+
+/*
+    STUBS
+    ----------------
+
+	1. Stubs are smart, they know what to give to client and server in which case.
+    2. In client streaming, client stream the request msgs and sever responds
+    
+*/
+
+
+/*  
+    DEPENDENCIES
+    ------------
+    go get google.golang.org/grpc@v1.53.0
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
+    
+    REPEATED KEYWORD
+    -----------------
+    The keyword repeated is used to declare a field that can hold multiple values of the specified type, essentially creating a list or array of that type.
+    
+    CMD TO GEN PROTO FILES
+    ----------------------
+    protoc --proto_path=proto --go_out=. --go-grpc_out=. proto/greet.proto
+
+*/
